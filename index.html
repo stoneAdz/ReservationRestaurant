@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>PHP Restaurant Table Reservation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style type="text/css">
+        p, body, td { font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 10pt; }
+        body { padding: 0px; margin: 0px; background-color: #ffffff; }
+        a { color: #1155a3; }
+        .space { margin: 10px 0px 10px 0px; }
+        .header { background: #003267; background: linear-gradient(to right, #011329 0%,#00639e 44%,#011329 100%); padding:20px 10px; color: white; box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.75); }
+        .header a { color: white; }
+        .header h1 a { text-decoration: none; }
+        .header h1 { padding: 0px; margin: 0px; }
+        .main { padding: 10px; margin-top: 10px; }
+    </style>
+
+    <style>
+        .filter {
+            margin: 10px 0px;
+            font-size: 14px;
+        }
+        .filter select {
+            padding: 5px;
+            font-size: 14px;
+        }
+        .timefilter {
+            display: inline-block;
+            background-color: #6aa84f;
+            color: white;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin-left: 10px;
+        }
+        .timefilter a.timefilter-clear {
+            display: inline-block;
+            margin-left: 15px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+
+        #dp .timeheader_selected .scheduler_default_timeheader_cell_inner {
+            background-color: #93c47d;
+        }
+
+        #dp .cell_selected.scheduler_default_cell,
+        #dp .cell_selected.scheduler_default_cell.scheduler_default_cell_business {
+            background-color: #b6d7a8;
+        }
+
+        #dp .scheduler_default_event_inner {
+          padding: 5px;
+        }
+
+        #dp .scheduler_default_event_float_inner::after {
+          border-color: transparent white transparent transparent;
+        }
+
+    </style>
+
+</head>
+<body>
+<div class="header">
+    <h1><a href="https://code.daypilot.org/97699/php-restaurant-table-reservation">PHP Restaurant Table Reservation</a></h1>
+    <div><a href="https://javascript.daypilot.org/">DayPilot for JavaScript</a> - HTML5 Calendar/Scheduling Components for JavaScript/Angular/React/Vue</div>
+</div>
+<div class="main">
+    <div class="filter">
+        Filter:
+        <select class="seatfilter">
+            <option value="0">All</option>
+            <option value="3">3+ seats</option>
+            <option value="4">4+ seats</option>
+            <option value="6">6+ seats</option>
+        </select>
+
+        <span class="timefilter">
+            <span class="timefilter-text"></span>
+          <a href="#" class="timefilter-clear">&times;</a>
+          </span>
+    </div>
+
+
+    <div id="dp"></div>
+</div>
+
+<!-- DayPilot library -->
+<script src="js/daypilot/daypilot-all.min.js"></script>
+
+<script>
+  var seatFilter = 0;
+  var timeFilter = null;
+
+  var dp = new DayPilot.Scheduler("dp", {
+    eventHeight: 40,
+    cellWidthSpec: "Fixed",
+    cellWidth: 50,
+    timeHeaders: [{groupBy: "Day", format: "dddd, d MMMM yyyy"}, {groupBy: "Hour"}, {groupBy: "Cell", format: "mm"}],
+    scale: "CellDuration",
+    cellDuration: 15,
+    days: 7,
+    startDate: DayPilot.Date.today().firstDayOfWeek(),
+    timeRangeSelectedHandling: "Enabled",
+    treeEnabled: true,
+    scrollTo: new DayPilot.Date(),
+    heightSpec: "Max",
+    height: 400,
+    durationBarVisible: false,
+    rowHeaderColumns: [
+      {title: "Table", display: "name"},
+      {title: "Seats", display: "seats"}
+    ],
+    businessBeginsHour: 11,
+    businessEndsHour: 24,
+    businessWeekends: true,
+    showNonBusiness: false,
+    onTimeRangeSelected: function (args) {
+      DayPilot.Modal.prompt("Create a new reservation:", "Reservation 1").then(function (modal) {
+        dp.clearSelection();
+        if (modal.canceled) {
+          return;
+        }
+
+        var params = {
+          start: args.start,
+          end: args.end,
+          resource: args.resource,
+          text: modal.result
+        };
+
+        DayPilot.Http.ajax({
+          url: "reservation_create.php",
+          data: params,
+          success: function (ajax) {
+            var ev = params;
+            ev.id = ajax.data.id;
+            dp.events.add(ev);
+            dp.message("Reservation created");
+          },
+        });
+
+      });
+    },
+    onEventClick: function (args) {
+      DayPilot.Modal.prompt("Edit a reservation:", args.e.text()).then(function (modal) {
+        if (modal.canceled) {
+          return;
+        }
+
+        var params = {
+          id: args.e.id(),
+          text: modal.result
+        };
+
+        DayPilot.Http.ajax({
+          url: "reservation_update.php",
+          data: params,
+          success: function (ajax) {
+            args.e.data.text = params.text;
+            dp.events.update(args.e);
+          }
+        });
+
+      });
+    },
+    onBeforeRowHeaderRender: function (args) {
+      if (args.row.data.seats && args.row.columns[1]) {
+        args.row.columns[1].html = args.row.data.seats + " seats";
+      }
+    },
+    onRowFilter: function (args) {
+      var seatsMatching = seatFilter === 0 || args.row.data.seats >= seatFilter;
+      var timeMatching = !timeFilter || !args.row.events.all().some(function (e) {
+        return overlaps(e.start(), e.end(), timeFilter.start, timeFilter.end);
+      });
+
+      args.visible = seatsMatching && timeMatching;
+    },
+    onTimeHeaderClick: function (args) {
+      timeFilter = {
+        start: args.header.start,
+        end: args.header.end
+      };
+      updateTimeFilter();
+
+      dp.rows.filter({});
+    },
+    onBeforeCellRender: function (args) {
+      if (!timeFilter) {
+        return;
+      }
+      if (overlaps(args.cell.start, args.cell.end, timeFilter.start, timeFilter.end)) {
+        args.cell.cssClass = "cell_selected";
+        // args.cell.backColor = "green";
+      }
+    },
+    onBeforeTimeHeaderRender: function (args) {
+      args.header.toolTip = "Filter by time";
+      args.header.areas = [
+        {
+          left: 0,
+          top: 0,
+          bottom: 0,
+          right: 0,
+          backColor: "green",
+          style: "opacity: 0.5; cursor: pointer;",
+          visibility: "Hover"
+        },
+        {right: 0, top: 7, width: 15, bottom: 20, html: "&#9660;", style: "color: #274e13;", visibility: "Hover"}
+      ];
+      if (timeFilter) {
+        if (args.header.start >= timeFilter.start && args.header.end <= timeFilter.end) {
+          args.header.cssClass = "timeheader_selected";
+          // args.header.backColor = "darkgreen";
+          // args.header.fontColor = "white";
+        }
+      }
+    },
+    onBeforeEventRender: function(args) {
+      args.data.backColor = "#3d85c6";
+      args.data.borderColor = "darker";
+      args.data.fontColor = "white";
+
+      args.data.areas = [
+        {
+          right: 4,
+          top: 9,
+          height: 22,
+          width: 22,
+          cssClass: "scheduler_default_event_delete",
+          style: "background-color: #fff; border: 1px solid #ccc; box-sizing: border-box; border-radius: 11px; padding: 0px;",
+          visibility: "Visible",
+          action: "None",
+          onClick: function (args) {
+            var e = args.source;
+            DayPilot.Modal.confirm("Delete this reservation?").then(function (modal) {
+              if (modal.canceled) {
+                return;
+              }
+              DayPilot.Http.ajax({
+                url: "reservation_delete.php",
+                data: {id: e.data.id},
+                success: function (ajax) {
+                  dp.events.remove(e.data.id);
+                }
+              });
+            });
+          }
+        }
+      ];
+    },
+    onEventMoved: function (args) {
+      var params = {
+        id: args.e.id(),
+        start: args.newStart,
+        end: args.newEnd,
+        resource: args.newResource
+      };
+      DayPilot.Http.ajax({
+        url: "reservation_move.php",
+        data: params,
+        success: function (ajax) {
+          dp.message("Reservation updated");
+        },
+      });
+    },
+    onEventResized: function (args) {
+      var params = {
+        id: args.e.id(),
+        start: args.newStart,
+        end: args.newEnd,
+        resource: args.e.resource()
+      };
+      DayPilot.Http.ajax({
+        url: "reservation_move.php",
+        data: params,
+        success: function (ajax) {
+          dp.message("Reservation updated");
+        },
+      });
+    },
+  });
+  dp.init();
+
+  dp.rows.load("reservation_tables.php");
+  dp.events.load("reservation_list.php");
+
+  activateTimeFilter();
+  activateSeatFilter();
+
+  updateTimeFilter();
+
+  function overlaps(start1, end1, start2, end2) {
+    return !(end1 <= start2 || start1 >= end2);
+  }
+
+  function updateTimeFilter() {
+    var span = document.querySelector(".timefilter");
+    if (!timeFilter) {
+      span.style.display = "none";
+      return;
+    }
+    var inner = document.querySelector(".timefilter-text");
+    var text = `${timeFilter?.start.toString("d/M/yyyy")} ${timeFilter?.start.toString("h:mm tt")} - ${timeFilter?.end.toString("h:mm tt")}`;
+    inner.innerText = text;
+    span.style.display = "";
+  }
+
+  function activateTimeFilter() {
+    var clear = document.querySelector(".timefilter-clear");
+    clear.addEventListener("click", function (ev) {
+      ev.preventDefault();
+      timeFilter = null;
+      updateTimeFilter();
+      dp.rows.filter({});
+    });
+  }
+
+  function activateSeatFilter() {
+    var filter = document.querySelector(".seatfilter");
+    filter.addEventListener("change", function (ev) {
+      seatFilter = parseInt(filter.value, 10);
+      dp.rows.filter({});
+    });
+  }
+
+</script>
+
+</body>
+</html>
