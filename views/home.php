@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 
-=======
->>>>>>> 588adbc (ajout du projet complet de réservation de restaurant)
 <!DOCTYPE html>
 <html lang="fr">
 <head>
