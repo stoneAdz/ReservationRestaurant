@@ -13,3 +13,7 @@ class ReservationController
         require_once 'views/reservation_form.php';
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 588adbc (ajout du projet complet de réservation de restaurant)

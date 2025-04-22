@@ -16,3 +16,4 @@ class UserController
 
     // Plus tard, tu ajouteras ici la logique pour vérifier les identifiants, etc.
 }
+

@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 588adbc (ajout du projet complet de réservation de restaurant)
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -11,3 +14,4 @@
     <p><a href="?page=login">Se connecter</a></p>
 </body>
 </html>
+
