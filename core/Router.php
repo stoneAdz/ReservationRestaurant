@@ -25,6 +25,12 @@ class Router
                 $controller->login();
                 break;
 
+            case 'register':
+                require_once 'controllers/UserController.php';
+                $controller = new UserController();
+                $controller->register();
+                break;
+
             default:
                 echo "Page non trouvée.";
                 break;
