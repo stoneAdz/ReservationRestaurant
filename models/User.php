@@ -8,6 +8,7 @@ class User
     {
         require_once 'core/Database.php';
         $this->pdo = Database::getInstance();
+        $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     }
 
     public function create($name, $email, $password)
@@ -15,7 +16,8 @@ class User
         // Vérifie si l'utilisateur existe déjà
         $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->execute([$email]);
-        if ($stmt->rowCount() > 0) {
+
+        if ($stmt->fetch()) {
             return false; // Utilisateur déjà inscrit
         }
 
@@ -40,4 +42,3 @@ class User
         return false; // Échec
     }
 }
-
