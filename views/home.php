@@ -9,6 +9,8 @@
     <h1>Bienvenue sur le système de réservation</h1>
     <p><a href="?page=reserve">Faire une réservation</a></p>
     <p><a href="?page=login">Se connecter</a></p>
+    <p><a href="?page=register">S'inscrire</a></p>
+
 </body>
 </html>
 
