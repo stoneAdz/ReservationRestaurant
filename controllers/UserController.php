@@ -1,19 +1,55 @@
 <?php
+    require_once 'models/User.php';
 
 class UserController
 {
     public function login()
-    {
-        // Affiche la vue de connexion
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $user = new User();
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        $loggedInUser = $user->login($email, $password);
+
+        if ($loggedInUser) {
+            session_start();
+            $_SESSION['user'] = $loggedInUser;
+            header("Location: ?page=home");
+            exit;
+        } else {
+            echo "Identifiants invalides.";
+        }
+    } else {
         require_once 'views/login.php';
     }
+}
 
-    public function register()
-    {
-        // Affiche la vue d'inscription
+public function register()
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        $user = new User();
+        $success = $user->create($name, $email, $password);
+
+        if ($success) {
+            header("Location: ?page=login"); // Redirection après inscription réussie
+            exit;
+        } else if (!$success) {
+            header("Location: ?page=register&error=true"); // Rediriger avec un message d'erreur
+            exit;
+        }else{
+            echo "Erreur : l'utilisateur existe déjà.";
+        }
+    } else {
         require_once 'views/register.php';
     }
+}
 
-    // Plus tard, tu ajouteras ici la logique pour vérifier les identifiants, etc.
+    
+
 }
 
