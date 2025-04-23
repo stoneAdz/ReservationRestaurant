@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,9 +6,17 @@
 </head>
 <body>
     <h1>Bienvenue sur le système de réservation</h1>
-    <p><a href="?page=reserve">Faire une réservation</a></p>
-    <p><a href="?page=login">Se connecter</a></p>
-    <p><a href="?page=register">S'inscrire</a></p>
+
+    <?php if (isset($_SESSION['user'])): ?>
+        <p>Bonjour <strong><?= htmlspecialchars($_SESSION['user']['name']) ?></strong> !</p>
+        <p><a href="?page=reserve">Faire une réservation</a></p>
+        <p><a href="?page=mes-reservations">Voir mes réservations</a></p>
+        <p><a href="?page=logout">Se déconnecter</a></p>
+    <?php else: ?>
+        <p><a href="?page=reserve">Faire une réservation</a></p>
+        <p><a href="?page=login">Se connecter</a></p>
+        <p><a href="?page=register">S'inscrire</a></p>
+    <?php endif; ?>
 
 </body>
 </html>

@@ -1,55 +1,47 @@
 <?php
-    require_once 'models/User.php';
+require_once 'models/User.php';
 
 class UserController
 {
-    public function login()
-{
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $user = new User();
-        $email = $_POST['email'];
-        $password = $_POST['password'];
+    public function register()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $password = $_POST['password'];
 
-        $loggedInUser = $user->login($email, $password);
+            $userModel = new User();
+            $result = $userModel->create($name, $email, $password);
 
-        if ($loggedInUser) {
-            session_start();
-            $_SESSION['user'] = $loggedInUser;
-            header("Location: ?page=home");
-            exit;
+            if ($result) {
+                echo "Inscription réussie ! <a href='?page=login'>Se connecter</a>";
+            } else {
+                echo "Cet utilisateur existe déjà.";
+            }
         } else {
-            echo "Identifiants invalides.";
+            require_once 'views/register.php';
         }
-    } else {
-        require_once 'views/login.php';
     }
-}
 
-public function register()
-{
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
+    public function login()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = $_POST['email'];
+            $password = $_POST['password'];
 
-        $user = new User();
-        $success = $user->create($name, $email, $password);
+            $userModel = new User();
+            $user = $userModel->login($email, $password);
 
-        if ($success) {
-            header("Location: ?page=login"); // Redirection après inscription réussie
-            exit;
-        } else if (!$success) {
-            header("Location: ?page=register&error=true"); // Rediriger avec un message d'erreur
-            exit;
-        }else{
-            echo "Erreur : l'utilisateur existe déjà.";
+            if ($user) {
+                $_SESSION['user'] = $user;
+                header('Location: index.php?page=reserve');
+                exit;
+            } else {
+                echo "Email ou mot de passe incorrect.";
+            }
+        } else {
+            require_once 'views/login.php';
         }
-    } else {
-        require_once 'views/register.php';
     }
-}
-
-    
-
 }
 

@@ -13,16 +13,36 @@ class Router
                 $controller->home();
                 break;
 
-            case 'reserve':
-                require_once 'controllers/ReservationController.php';
-                $controller = new ReservationController();
-                $controller->makeReservation();
-                break;
+          case 'reserve':
+    require_once 'controllers/ReservationController.php';
+    $controller = new ReservationController();
+    $controller->makeReservation();
+    break;
+
 
             case 'login':
                 require_once 'controllers/UserController.php';
                 $controller = new UserController();
                 $controller->login();
+                break;
+
+            case 'register':
+                require_once 'controllers/UserController.php';
+                $controller = new UserController();
+                $controller->register();
+                break;
+                
+                case 'mes-reservations':
+    require_once 'controllers/ReservationController.php';
+    $controller = new ReservationController();
+    $controller->myReservations();
+    break;
+
+
+            case 'logout':
+                session_destroy();
+                header('Location: index.php?page=login');
+                exit;
                 break;
 
             default:

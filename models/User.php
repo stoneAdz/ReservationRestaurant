@@ -2,43 +2,44 @@
 
 class User
 {
-    private $pdo;
+    private $file;
 
     public function __construct()
     {
-        require_once 'core/Database.php';
-        $this->pdo = Database::getInstance();
-        $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        $this->file = 'BD/Database.json';
     }
 
     public function create($name, $email, $password)
     {
-        // Vérifie si l'utilisateur existe déjà
-        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = ?");
-        $stmt->execute([$email]);
+        $users = json_decode(file_get_contents($this->file), true);
 
-        if ($stmt->fetch()) {
-            return false; // Utilisateur déjà inscrit
+        foreach ($users as $user) {
+            if ($user['email'] === $email) {
+                return false; // utilisateur déjà inscrit
+            }
         }
 
-        // Hachage du mot de passe
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $users[] = [
+            'name' => $name,
+            'email' => $email,
+            'password' => password_hash($password, PASSWORD_DEFAULT)
+        ];
 
-        // Insertion en base
-        $stmt = $this->pdo->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-        return $stmt->execute([$name, $email, $hashedPassword]);
+        file_put_contents($this->file, json_encode($users, JSON_PRETTY_PRINT));
+        return true;
     }
 
     public function login($email, $password)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = ?");
-        $stmt->execute([$email]);
-        $user = $stmt->fetch();
+        $users = json_decode(file_get_contents($this->file), true);
 
-        if ($user && password_verify($password, $user['password'])) {
-            return $user; // Connexion réussie
+        foreach ($users as $user) {
+            if ($user['email'] === $email && password_verify($password, $user['password'])) {
+                return $user;
+            }
         }
 
-        return false; // Échec
+        return false;
     }
 }
+
