@@ -13,8 +13,12 @@ class User
     {
         $users = json_decode(file_get_contents($this->file), true);
 
+        if (!is_array($users)) {
+            $users = []; // 🔐 Important si le fichier est vide ou cassé
+        }
+
         foreach ($users as $user) {
-            if ($user['email'] === $email) {
+            if (isset($user['email']) && $user['email'] === $email) {
                 return false; // utilisateur déjà inscrit
             }
         }
@@ -33,8 +37,16 @@ class User
     {
         $users = json_decode(file_get_contents($this->file), true);
 
+        if (!is_array($users)) {
+            return false;
+        }
+
         foreach ($users as $user) {
-            if ($user['email'] === $email && password_verify($password, $user['password'])) {
+            if (
+                isset($user['email'], $user['password']) &&
+                $user['email'] === $email &&
+                password_verify($password, $user['password'])
+            ) {
                 return $user;
             }
         }

@@ -34,7 +34,7 @@ class UserController
 
             if ($user) {
                 $_SESSION['user'] = $user;
-                header('Location: index.php?page=reserve');
+                header('Location: index.php?page=home');
                 exit;
             } else {
                 echo "Email ou mot de passe incorrect.";

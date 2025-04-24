@@ -38,10 +38,26 @@ class Router
     $controller->myReservations();
     break;
 
+		case 'cancel-reservation':
+    require_once 'controllers/ReservationController.php';
+    $controller = new ReservationController();
+    $controller->cancelReservation();
+    break;
+               case 'edit-reservation':
+    require_once 'controllers/ReservationController.php';
+    $controller = new ReservationController();
+    $controller->editReservation();
+    break;
+    case 'all-reservations':
+    require_once 'controllers/ReservationController.php';
+    $controller = new ReservationController();
+    $controller->allReservations();
+    break;
+
 
             case 'logout':
                 session_destroy();
-                header('Location: index.php?page=login');
+                header('Location: index.php?page=home');
                 exit;
                 break;
 

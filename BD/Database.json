@@ -1,7 +1,17 @@
 [
     {
+        "name": "Dounia",
+        "email": "douniahalit@gmail.com",
+        "password": "$2y$10$rJ3OeUZ9c8.CEbcZMG29geQKnOKlU3AU2T\/jv4RE3VuKZn6KPdwae"
+    },
+    {
         "name": "HALIT",
         "email": "Dounia_Halit@etu.u-bourgogne.fr",
-        "password": "$2y$10$loeAgnJ1Bj4dv5sI9hO2DOXsY0MugNFe\/vTo4e.KYKJItQ.q9nggO"
+        "password": "$2y$10$eR3dQHXPYOIp0uBTBU0q8OchTrXXOTGNqnmd2dgnnr1azqqU6iie."
+    },
+    {
+        "name": "admin",
+        "email": "admin@resto.com",
+        "password": "$2y$10$qw82X5Qg50VurJRqenz13OK8aJt.CXmg.JNnD0zEwSDFvrQgiMMVC"
     }
 ]

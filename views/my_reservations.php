@@ -2,10 +2,13 @@
 
 <?php if (!empty($reservations)): ?>
     <ul>
-        <?php foreach ($reservations as $res): ?>
+        <?php foreach ($reservations as $index => $res): ?>
             <li>
-                Le <?= htmlspecialchars($res['date']) ?> à <?= htmlspecialchars($res['time']) ?> 
+                Le <?= htmlspecialchars($res['date']) ?> à <?= htmlspecialchars($res['time']) ?>
                 pour <?= htmlspecialchars($res['guests']) ?> personnes.
+                <a href="?page=cancel-reservation&id=<?= $index ?>">Annuler</a>
+                <a href="?page=edit-reservation&id=<?= $index ?>">Modifier</a>
+
             </li>
         <?php endforeach; ?>
     </ul>
