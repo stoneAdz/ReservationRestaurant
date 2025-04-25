@@ -7,7 +7,6 @@ class ReservationController
     {
         require_once 'views/home.php';
     }
-
 public function makeReservation()
 {
     if (!isset($_SESSION['user'])) {
@@ -18,7 +17,7 @@ public function makeReservation()
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $date = $_POST['date'];
         $time = $_POST['time'];
-        $guests = $_POST['guests'];
+        $guests = (int)$_POST['guests'];
 
         $reservation = [
             'user' => $_SESSION['user']['email'],
@@ -36,28 +35,44 @@ public function makeReservation()
 
         $data = json_decode(file_get_contents($file), true);
 
-        //  Vérification de créneau déjà réservé
+        // ✅ Vérification de la capacité max (6 tables x 4 personnes = 24)
+        $totalGuests = 0;
         foreach ($data as $existing) {
-            if (
-                $existing['date'] === $date &&
-                $existing['time'] === $time
-            ) {
-                echo "<p style='color:red;'>❌ Ce créneau est déjà réservé. Choisis un autre horaire.</p>";
-                require_once 'views/reservation_form.php';
-                return;
+            if ($existing['date'] === $date && $existing['time'] === $time) {
+                $totalGuests += (int)$existing['guests'];
             }
         }
 
-        //  Créneau libre → on enregistre
+        if ($totalGuests + $guests > 24) {
+            echo "<p style='color:red;'>❌ Ce créneau est complet (maximum 24 personnes).</p>";
+            echo "<p><a href='?page=reserve'>Retour au formulaire</a></p>";
+            return;
+        }
+
+        // ✅ Créneau disponible → enregistrement
         $data[] = $reservation;
         file_put_contents($file, json_encode($data, JSON_PRETTY_PRINT));
 
+        // ✅ Message de confirmation + simulation e-mail
         echo "<p>✅ Réservation enregistrée avec succès !</p>";
+        echo "<p style='color: green;'>✉️ Un e-mail de confirmation a été envoyé à <strong>{$_SESSION['user']['email']}</strong></p>";
+
+        echo "<pre style='background:#f8f8f8; padding:10px; border:1px solid #ccc;'>
+📅 Confirmation de réservation
+Bonjour {$_SESSION['user']['name']},
+
+Votre réservation du {$date} à {$time} pour {$guests} personne(s) a bien été enregistrée.
+
+Merci de votre confiance !
+        </pre>";
+
         echo "<p><a href='?page=home'>Retour à l'accueil</a></p>";
     } else {
         require_once 'views/reservation_form.php';
     }
 }
+
+
 
 public function myReservations()
 {

@@ -13,3 +13,41 @@
     <button type="submit">Confirmer la réservation</button>
 </form>
 
+<hr>
+
+<h3>🕒 Créneaux déjà réservés :</h3>
+<ul id="bookedSlots"></ul>
+
+<script>
+fetch('BD/reservations.json')
+  .then(response => response.json())
+  .then(data => {
+    const list = document.getElementById('bookedSlots');
+    if (!Array.isArray(data)) return;
+
+    // 🔁 Grouper par date + heure + total invités
+    const grouped = {};
+
+    data.forEach(res => {
+      const key = `${res.date} à ${res.time}`;
+      const guests = parseInt(res.guests);
+
+      if (!grouped[key]) {
+        grouped[key] = guests;
+      } else {
+        grouped[key] += guests;
+      }
+    });
+
+    // 🧾 Affichage
+    Object.entries(grouped).forEach(([slot, total]) => {
+      const li = document.createElement('li');
+      const remaining = 24 - total;
+
+      li.textContent = `${slot} - ${total} personnes réservées (${remaining > 0 ? remaining + " restantes" : "COMPLET"})`;
+      if (remaining <= 0) li.style.color = 'red';
+      list.appendChild(li);
+    });
+  });
+</script>
+
