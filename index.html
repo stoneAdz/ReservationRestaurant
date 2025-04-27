@@ -4,10 +4,8 @@
     <meta charset="utf-8"/>
     <title>PHP Restaurant Table Reservation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-     <link rel="stylesheet" href="http://localhost/ReservationRestaurant/assets/css/index.css">
- 
-
+    <!-- Lien vers le fichier CSS -->
+    <link rel="stylesheet" href="assets/css/index.css">
 </head>
 <body>
 <div class="header">
@@ -26,10 +24,9 @@
 
         <span class="timefilter">
             <span class="timefilter-text"></span>
-          <a href="#" class="timefilter-clear">&times;</a>
-          </span>
+            <a href="#" class="timefilter-clear">&times;</a>
+        </span>
     </div>
-
 
     <div id="dp"></div>
 </div>
@@ -161,8 +158,6 @@
       if (timeFilter) {
         if (args.header.start >= timeFilter.start && args.header.end <= timeFilter.end) {
           args.header.cssClass = "timeheader_selected";
-          // args.header.backColor = "darkgreen";
-          // args.header.fontColor = "white";
         }
       }
     },
