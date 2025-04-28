@@ -1,0 +1,29 @@
+body {
+    background: #dfe6e9;
+    font-family: 'Poppins', sans-serif;
+}
+.container {
+    max-width: 500px;
+    background: white;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+input, button {
+    padding: 12px;
+    border-radius: 8px;
+}
+button {
+    background: #e67e22;
+    color: white;
+    font-weight: bold;
+}
+button:hover {
+    background: #d35400;
+}
