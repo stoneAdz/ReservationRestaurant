@@ -5,13 +5,6 @@
 - **Nom** : HALIT DOUNIA, AZROU ADLANE, SAIRI SAMIR
   
 
-##  Identifiants d'accès à l'application
-
-- **Username (e-mail)** : admin@resto.com
-- **Mot de passe** : 1234
-
-*(Pour accéder à l’espace administrateur et tester toutes les fonctionnalités)*
-
 ## Lien de démonstration vidéo
 
 [Lien vers la vidéo YouTube présentant le projet](https://www.youtube.com
