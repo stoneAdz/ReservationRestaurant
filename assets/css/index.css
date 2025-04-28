@@ -1,86 +1,181 @@
-/* Normalisation des styles pour tous les navigateurs */
+ 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
-/* Corps de la page */
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f4f4f4;
+    background: linear-gradient(135deg, #229580, #2d4cda);
     color: #333;
-    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Header */
-header {
-    background-color: #8B0000; /* Rouge foncé */
-    color: white;
-    text-align: center;
-    padding: 2rem;
-    font-size: 2.5rem;
-    font-weight: bold;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Liens de navigation dans le header */
-nav a {
-    color: white;
-    margin: 0 1rem;
-    text-decoration: none;
-    font-size: 1rem;
-}
-
-nav a:hover {
-    text-decoration: underline;
-}
-
-/* Formulaire de réservation */
-form {
-    background-color: white;
-    padding: 2rem;
-    margin: 2rem auto;
-    max-width: 500px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-form label {
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-}
-
-form input, form select {
-    width: 100%;
-    margin-bottom: 1.5rem;
-    padding: 0.8rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1rem;
-}
  
-button {
-    background-color: #8B0000; /* Rouge foncé */
-    color: white;
-    border: none;
-    padding: 1rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+header {
+    background-color: #ffffffcc;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-
-button:hover {
-    background-color: #a40000;  
+header h1 {
+    color: #3498db;
+    font-size: 1.8rem;
+}
+nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #2c3e50;
+    font-weight: 500;
+}
+nav a:hover {
+    color: #2980b9;
 }
 
  
 footer {
-    margin-top: 3rem;
-    padding: 1rem;
+    margin-top: auto;
+    background: #ffffffcc;
     text-align: center;
-    background-color: #8B0000; /* Rouge foncé */
-    color: white;
+    padding: 10px;
     font-size: 0.9rem;
+    color: #555;
+}
+
+ 
+.container {
+    width: 90%;
+    max-width: 800px;
+    margin: 60px auto;
+    background: #fff;
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+ 
+.success-message {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+}
+
+ 
+.email-confirmation {
+    background: #e2f0d9;
+    color: #1e5631;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+ 
+.reservation-box {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 12px rgba(0,0,0,0.1);
+    font-family: monospace;
+    white-space: pre-wrap;
+    margin-bottom: 30px;
+}
+
+ 
+.return-link {
+    display: inline-block;
+    margin-top: 20px;
+    text-align: center;
+    color: #3498db;
+    font-weight: bold;
+    text-decoration: none;
+}
+.return-link:hover {
+    text-decoration: underline;
+    color: #2980b9;
+}
+
+ 
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+input, button, select {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+input:focus, select:focus {
+    border-color: #3498db;
+    outline: none;
+}
+button {
+    background: #3498db;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+button:hover {
+    background: #2980b9;
+}
+
+ 
+h1, h2, h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+ 
+ul {
+    list-style: none;
+    margin-top: 20px;
+}
+ul li {
+    background: #f2f2f2;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-left: 5px solid #3498db;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+ul li a {
+    margin-left: 10px;
+    font-size: 0.9rem;
+    color: #e74c3c;
+}
+ul li a:hover {
+    color: #c0392b;
+}
+
+ 
+a, button {
+    transition: all 0.3s ease-in-out;
+}
+
+ 
+@media screen and (max-width: 768px) {
+    header, nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .container {
+        padding: 20px;
+    }
 }
