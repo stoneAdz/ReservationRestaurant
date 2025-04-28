@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Inscription</title>
+    <link rel="stylesheet" href="assets/css/register.css">
 </head>
 <body>
     <h1>Inscription</h1>
