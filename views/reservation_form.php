@@ -1,53 +1,66 @@
-<h1>Réserver une table</h1>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réserver une table</title>
+    <link rel="stylesheet" href="assets/css/reservation_form.css">
+</head>
+<body class="reservation-container">
 
-<form method="POST" action="?page=reserve">
-    <label for="date">Date :</label>
-    <input type="date" name="date" required><br><br>
+    <div class="container">
+        <h1>Réserver une table</h1>
 
-    <label for="time">Heure :</label>
-    <input type="time" name="time" required><br><br>
+        <form method="POST" action="?page=reserve">
+            <label for="date">Date :</label>
+            <input type="date" name="date" required><br><br>
 
-    <label for="guests">Nombre de personnes :</label>
-    <input type="number" name="guests" min="1" required><br><br>
+            <label for="time">Heure :</label>
+            <input type="time" name="time" required><br><br>
 
-    <button type="submit">Confirmer la réservation</button>
-</form>
+            <label for="guests">Nombre de personnes :</label>
+            <input type="number" name="guests" min="1" required><br><br>
 
-<hr>
+            <button type="submit">Confirmer la réservation</button>
+        </form>
 
-<h3>🕒 Créneaux déjà réservés :</h3>
-<ul id="bookedSlots"></ul>
+        <hr>
 
-<script>
-fetch('BD/reservations.json')
-  .then(response => response.json())
-  .then(data => {
-    const list = document.getElementById('bookedSlots');
-    if (!Array.isArray(data)) return;
+        <h3>🕒 Créneaux déjà réservés :</h3>
+        <ul id="bookedSlots"></ul>
+    </div>
 
-    // 🔁 Grouper par date + heure + total invités
-    const grouped = {};
+    <script>
+        fetch('BD/reservations.json')
+            .then(response => response.json())
+            .then(data => {
+                const list = document.getElementById('bookedSlots');
+                if (!Array.isArray(data)) return;
 
-    data.forEach(res => {
-      const key = `${res.date} à ${res.time}`;
-      const guests = parseInt(res.guests);
+                // 🔁 Grouper par date + heure + total invités
+                const grouped = {};
 
-      if (!grouped[key]) {
-        grouped[key] = guests;
-      } else {
-        grouped[key] += guests;
-      }
-    });
+                data.forEach(res => {
+                    const key = `${res.date} à ${res.time}`;
+                    const guests = parseInt(res.guests);
 
-    // 🧾 Affichage
-    Object.entries(grouped).forEach(([slot, total]) => {
-      const li = document.createElement('li');
-      const remaining = 24 - total;
+                    if (!grouped[key]) {
+                        grouped[key] = guests;
+                    } else {
+                        grouped[key] += guests;
+                    }
+                });
 
-      li.textContent = `${slot} - ${total} personnes réservées (${remaining > 0 ? remaining + " restantes" : "COMPLET"})`;
-      if (remaining <= 0) li.style.color = 'red';
-      list.appendChild(li);
-    });
-  });
-</script>
+                // 🧾 Affichage
+                Object.entries(grouped).forEach(([slot, total]) => {
+                    const li = document.createElement('li');
+                    const remaining = 24 - total;
 
+                    li.textContent = `${slot} - ${total} personnes réservées (${remaining > 0 ? remaining + " restantes" : "COMPLET"})`;
+                    if (remaining <= 0) li.classList.add('red');
+                    list.appendChild(li);
+                });
+            });
+    </script>
+</body>
+</html>
