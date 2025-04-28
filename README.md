@@ -2,7 +2,7 @@
 
 ##  Membres du projet
 
-- **Nom** : HALIT DOUNIA, AZROU ADLENE, SAIRI SAMIR
+- **Nom** : HALIT DOUNIA, AZROU ADLANE, SAIRI SAMIR
   
 
 ##  Identifiants d'accès à l'application
