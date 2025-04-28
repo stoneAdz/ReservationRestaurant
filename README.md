@@ -7,9 +7,8 @@
 
 ## Lien de démonstration vidéo
 
-[Lien vers la vidéo YouTube présentant le projet](https://www.youtube.com
-
-*(À insérer dès que votre vidéo est prête)*
+[Lien vers la vidéo YouTube présentant le projet]
+(https://youtu.be/H_MJ6Oa8kpY)
 
 ##  Informations importantes sur la vidéo :
 
