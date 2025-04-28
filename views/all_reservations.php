@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Toutes les réservations</title>
-    <link rel="stylesheet" href="assets/css/reservations.css">
+    <link rel="stylesheet" href="assets/css/reservations.css"> 
 </head>
 <body class="reservations-list">
 
     <div class="container">
-        <h1>Toutes les réservations</h1>
+        <h1>📋 Toutes les réservations</h1>
 
         <?php if (!empty($reservations)): ?>
             <ul>
