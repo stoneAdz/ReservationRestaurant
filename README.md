@@ -2,8 +2,8 @@
 
 ##  Membres du projet
 
-- **Nom** : Halit Dounia
-- **Autres membres** : *(À compléter si besoin)*
+- **Nom** : Halit Dounia, AZROU ADLENE, SAIRI SAMIR
+- 
 
 ##  Identifiants d'accès à l'application
 
@@ -12,7 +12,7 @@
 
 *(Pour accéder à l’espace administrateur et tester toutes les fonctionnalités)*
 
-## 🎥 Lien de démonstration vidéo
+## Lien de démonstration vidéo
 
 👉 [Lien vers la vidéo YouTube présentant le projet](https://www.youtube.com
 
