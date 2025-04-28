@@ -1,0 +1,75 @@
+/* Reset simple */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    color: #2c3e50;
+}
+
+/* Conteneur principal */
+.container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 40px 50px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Titre principal */
+h1 {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+    color: #34495e;
+}
+
+/* Message d'accueil */
+p {
+    font-size: 1.1rem;
+    margin: 15px 0;
+}
+
+/* Liens */
+a {
+    display: inline-block;
+    margin: 10px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    background: #3498db;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+a:hover {
+    background: #2980b9;
+}
+
+/* Liens spéciaux admin */
+a.admin-link {
+    background: #e67e22;
+}
+
+a.admin-link:hover {
+    background: #d35400;
+}
+
+/* Footer optionnel */
+footer {
+    margin-top: 30px;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
