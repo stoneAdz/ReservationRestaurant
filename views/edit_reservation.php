@@ -1,17 +1,28 @@
-<h1>Modifier la réservation</h1>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier la réservation</title>
+    <link rel="stylesheet" href="assets/css/edit_reservation.css">
+</head>
+<body class="edit-reservation-container">
 
-<form method="POST" action="?page=edit-reservation&id=<?= $id ?>">
-    <label for="date">Date :</label>
-    <input type="date" name="date" value="<?= $res['date'] ?>" required><br><br>
+    <h1>Modifier la réservation</h1>
 
-    <label for="time">Heure :</label>
-    <input type="time" name="time" value="<?= $res['time'] ?>" required><br><br>
+    <form method="POST" action="?page=edit-reservation&id=<?= $id ?>">
+        <label for="date">Date :</label>
+        <input type="date" name="date" value="<?= $res['date'] ?>" required><br><br>
 
-    <label for="guests">Nombre de personnes :</label>
-    <input type="number" name="guests" value="<?= $res['guests'] ?>" required><br><br>
+        <label for="time">Heure :</label>
+        <input type="time" name="time" value="<?= $res['time'] ?>" required><br><br>
 
-    <button type="submit">Mettre à jour</button>
-</form>
+        <label for="guests">Nombre de personnes :</label>
+        <input type="number" name="guests" value="<?= $res['guests'] ?>" required><br><br>
 
-<p><a href="?page=mes-reservations">Retour</a></p>
+        <button type="submit">Mettre à jour</button>
+    </form>
 
+    <p><a href="?page=mes-reservations">Retour</a></p>
+</body>
+</html>
