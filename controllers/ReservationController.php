@@ -35,7 +35,6 @@ public function makeReservation()
 
         $data = json_decode(file_get_contents($file), true);
 
-        // ✅ Vérification de la capacité max (6 tables x 4 personnes = 24)
         $totalGuests = 0;
         foreach ($data as $existing) {
             if ($existing['date'] === $date && $existing['time'] === $time) {
@@ -44,17 +43,15 @@ public function makeReservation()
         }
 
         if ($totalGuests + $guests > 24) {
-            echo "<p style='color:red;'>❌ Ce créneau est complet (maximum 24 personnes).</p>";
+            echo "<p style='color:red;'> Ce créneau est complet (maximum 24 personnes).</p>";
             echo "<p><a href='?page=reserve'>Retour au formulaire</a></p>";
             return;
         }
 
-        // ✅ Créneau disponible → enregistrement
         $data[] = $reservation;
         file_put_contents($file, json_encode($data, JSON_PRETTY_PRINT));
 
-        // ✅ Message de confirmation + simulation e-mail
-        echo "<p>✅ Réservation enregistrée avec succès !</p>";
+        echo "<p> Réservation enregistrée avec succès !</p>";
         echo "<p style='color: green;'>✉️ Un e-mail de confirmation a été envoyé à <strong>{$_SESSION['user']['email']}</strong></p>";
 
         echo "<pre style='background:#f8f8f8; padding:10px; border:1px solid #ccc;'>
@@ -154,7 +151,7 @@ public function editReservation()
 public function allReservations()
 {
     if (!isset($_SESSION['user']) || $_SESSION['user']['email'] !== 'admin@resto.com') {
-        echo "<p>⛔ Accès refusé. Cette page est réservée à l'administrateur.</p>";
+        echo "<p> Accès refusé. Cette page est réservée à l'administrateur.</p>";
         return;
     }
 
