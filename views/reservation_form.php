@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Réserver une table</title>
-    <link rel="stylesheet" href="assets/css/reservation_form.css"> <!-- On ajoute ici -->
+    <link rel="stylesheet" href="assets/css/reservation_form.css"> 
 </head>
 <body>
 
@@ -15,7 +15,7 @@
 
     <label for="time">Heure :</label>
     <select name="time" id="time" required>
-        <!-- Les options seront générées automatiquement en JS -->
+
     </select><br><br>
 
     <label for="guests">Nombre de personnes :</label>
@@ -26,11 +26,11 @@
 
 <hr>
 
-<h3>🕒 Créneaux disponibles :</h3>
+<h3> Créneaux disponibles :</h3>
 <ul id="availableSlots"></ul>
 
 <script>
-// Génère toutes les heures possibles par pas de 30 min
+
 function generateTimeSlots() {
     const slots = [];
     for (let hour = 18; hour <= 22; hour++) {
