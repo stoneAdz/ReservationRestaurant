@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Accueil - Réservation Restaurant</title>
+    <link rel="stylesheet" href="assets/css/home.css">
 </head>
 <body>
     <h1>Bienvenue sur le système de réservation</h1>
