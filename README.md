@@ -2,8 +2,8 @@
 
 ##  Membres du projet
 
-- **Nom** : Halit Dounia, AZROU ADLENE, SAIRI SAMIR
-- 
+- **Nom** : HALIT DOUNIA, AZROU ADLENE, SAIRI SAMIR
+  
 
 ##  Identifiants d'accès à l'application
 
@@ -14,7 +14,7 @@
 
 ## Lien de démonstration vidéo
 
-👉 [Lien vers la vidéo YouTube présentant le projet](https://www.youtube.com
+[Lien vers la vidéo YouTube présentant le projet](https://www.youtube.com
 
 *(À insérer dès que votre vidéo est prête)*
 
