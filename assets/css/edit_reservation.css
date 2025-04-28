@@ -1,29 +1,73 @@
+ 
+
 body {
-    background: #dfe6e9;
-    font-family: 'Poppins', sans-serif;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
 }
-.container {
-    max-width: 500px;
-    background: white;
-    margin: 50px auto;
+
+.edit-reservation-container {
+    background-color: white;
     padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-top: 50px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 400px;
 }
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
 form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
 }
-input, button {
-    padding: 12px;
-    border-radius: 8px;
-}
-button {
-    background: #e67e22;
-    color: white;
+
+label {
+    margin-bottom: 5px;
     font-weight: bold;
 }
-button:hover {
-    background: #d35400;
+
+input[type="date"],
+input[type="time"],
+input[type="number"] {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+p a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+p a:hover {
+    text-decoration: underline;
 }
