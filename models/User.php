@@ -14,7 +14,7 @@ class User
         $users = json_decode(file_get_contents($this->file), true);
 
         if (!is_array($users)) {
-            $users = []; // 🔐 Important si le fichier est vide ou cassé
+            $users = []; // 
         }
 
         foreach ($users as $user) {
