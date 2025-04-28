@@ -1,4 +1,4 @@
-/* Reset simple */
+ 
 * {
     margin: 0;
     padding: 0;
@@ -7,7 +7,9 @@
 
 body {
     min-height: 100vh;
-    background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+    background: 
+        
+        url('image.jpg') center/cover no-repeat;
     font-family: 'Poppins', sans-serif;
     display: flex;
     flex-direction: column;
@@ -17,7 +19,7 @@ body {
     color: #2c3e50;
 }
 
-/* Conteneur principal */
+ 
 .container {
     background: rgba(255, 255, 255, 0.9);
     padding: 40px 50px;
@@ -28,20 +30,19 @@ body {
     max-width: 500px;
 }
 
-/* Titre principal */
+ 
 h1 {
     font-size: 2.8rem;
     margin-bottom: 20px;
     color: #34495e;
 }
-
-/* Message d'accueil */
+ 
 p {
     font-size: 1.1rem;
     margin: 15px 0;
 }
 
-/* Liens */
+ 
 a {
     display: inline-block;
     margin: 10px;
@@ -58,7 +59,7 @@ a:hover {
     background: #2980b9;
 }
 
-/* Liens spéciaux admin */
+ 
 a.admin-link {
     background: #e67e22;
 }
@@ -67,7 +68,7 @@ a.admin-link:hover {
     background: #d35400;
 }
 
-/* Footer optionnel */
+ 
 footer {
     margin-top: 30px;
     font-size: 0.9rem;
