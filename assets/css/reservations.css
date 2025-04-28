@@ -1,6 +1,14 @@
 body {
-    background: #ffffff;
+    min-height: 100vh;
+    background: 
+    url('lounge.jpg') center/cover no-repeat
+        ;
     font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    color: #2c3e50;
 }
 .container {
     width: 80%;
